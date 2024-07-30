@@ -14,14 +14,15 @@ class Customer {
   final String last_name;
   final String email;
   final String phoneNumber;
+  final String address;
+  final String birthday;
 
 
   ///constructor
-  Customer(this.customer_id,this.first_name,this.last_name,this.email,this.phoneNumber) {
+  Customer(this.customer_id,this.first_name,this.last_name,this.email,this.phoneNumber,this.address,this.birthday) {
 
     if (customer_id > ID){
       ID = customer_id + 1;
     }
   }
-
 }
