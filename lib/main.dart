@@ -57,10 +57,19 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(onPressed: registrationDirector, child: Text("Registration Page"),),
+          ],
+        )
 
       ),
 
     );
   }
 
+ void registrationDirector() {
+   Navigator.pushNamed(context, '/registerPage');
+  }
 }
