@@ -81,36 +81,145 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
 
-            SizedBox(height: 20),
+              SizedBox(height: 20),
               Text("Welcome to the Registration Page",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic)),
               SizedBox(height: 20),
+
             ///first row for the customer last name and first name.
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width: 20),
-                //Text field for the first name.
-                Expanded(child: TextField(controller: _firstName,
-                    decoration: InputDecoration(
-                        hintText:"Enter Your First Name",
-                        border: OutlineInputBorder(),
-                        labelText: "First Name"
-                    )),
+                //column for the other field
+                Container(
+                  width: 400, // Adjust the width as needed
+                  padding: const EdgeInsets.all(10.0), // Optional: Add padding
+                  margin: const EdgeInsets.all(20.0), // Optional: Add margin
+                  decoration: BoxDecoration(
+                    color: Colors.white, // Optional: Add background color
+                    borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
+
+                  ),
+                  child: TextField(controller: _firstName,
+                      decoration: InputDecoration(
+                          hintText:"Enter  First Name",
+                          border: OutlineInputBorder(),
+                          labelText: "First Name"
+                      )),
                 ),
 
-                //make some padding using the SizedBox
-                SizedBox(width: 20,),
-                //Text field for the last name
-                Expanded(child: TextField(controller: _lastName,
-                    decoration: InputDecoration(
-                        hintText:"Enter Your last Name",
-                        border: OutlineInputBorder(),
-                        labelText: "Last Name"
-                    )),)
+                //column for the other field
+                Container(
+                  width: 400, // Adjust the width as needed
+                  padding: const EdgeInsets.all(10.0), // Optional: Add padding
+                  margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                  decoration: BoxDecoration(
+                    color: Colors.white, // Optional: Add background color
+                    borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
+
+                  ),
+                  child: TextField(controller: _lastName,
+                      decoration: InputDecoration(
+                          hintText:"Enter Last Name",
+                          border: OutlineInputBorder(),
+                          labelText: "Last Name"
+                      )),
+                ),
+
               ],
-            )
+            ),
 
 
+            Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+
+            children: [
+            //column for the other field
+            Container(
+              width: 600, // Adjust the width as needed
+              padding: const EdgeInsets.all(10.0), // Optional: Add padding
+              margin: const EdgeInsets.all(10.0), // Optional: Add margin
+              decoration: BoxDecoration(
+                color: Colors.white, // Optional: Add background color
+                borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
+
+              ),
+              child: TextField(controller: _birthday,
+                  decoration: InputDecoration(
+                      hintText:"Enter Date Of Birth",
+                      border: OutlineInputBorder(),
+                      labelText: "BirthDate"
+                  )),
+            ),
+           ] ),
+            //Row for the Phone Number
+            Row (
+            mainAxisAlignment:  MainAxisAlignment.start,
+            children: [
+            Container(
+              width: 600, // Adjust the width as needed
+              padding: const EdgeInsets.all(10.0), // Optional: Add padding
+              margin: const EdgeInsets.all(10.0), // Optional: Add margin
+              decoration: BoxDecoration(
+                color: Colors.white, // Optional: Add background color
+                borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
+
+              ),
+              child: TextField(controller: _email,
+                  decoration: InputDecoration(
+                      hintText:"Enter Your Email address",
+                      border: OutlineInputBorder(),
+                      labelText: "Email"
+                  )),
+            ),
+
+            ],),
+
+            //Row for the Phone Number
+            Row (
+              mainAxisAlignment:  MainAxisAlignment.start,
+              children: [
+                Container(
+                  width: 600, // Adjust the width as needed
+                  padding: const EdgeInsets.all(10.0), // Optional: Add padding
+                  margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                  decoration: BoxDecoration(
+                    color: Colors.white, // Optional: Add background color
+                    borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
+
+                  ),
+                  child: TextField(controller: _phoneNumber,
+                      decoration: InputDecoration(
+                          hintText:"Enter phone number ",
+                          border: OutlineInputBorder(),
+                          labelText: "PhoneNumber"
+                      )),
+                ),
+
+              ],),
+//Row for the Phone Number
+            Row (
+              mainAxisAlignment:  MainAxisAlignment.start,
+              children: [
+                Container(
+                  width: 600, // Adjust the width as needed
+                  padding: const EdgeInsets.all(10.0), // Optional: Add padding
+                  margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                  decoration: BoxDecoration(
+                    color: Colors.white, // Optional: Add background color
+                    borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
+
+                  ),
+                  child: TextField(controller: _address,
+                      decoration: InputDecoration(
+                          hintText:"Enter Your Address",
+                          border: OutlineInputBorder(),
+                          labelText: "Address:"
+                      )),
+                ),
+              ],),
+
+            //creating Register button to register the user as the customer
+            ElevatedButton(onPressed: (){ } , child: Text("Register"))
           ],
         ),
       ),
