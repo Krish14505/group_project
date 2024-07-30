@@ -3,7 +3,7 @@ import 'package:floor/floor.dart';
 
 ///This class is dedicated as the customer table.
 @entity
-class customers {
+class Customer {
 
   static int ID = 1 ;
 
@@ -17,7 +17,7 @@ class customers {
 
 
   ///constructor
-  customers(this.customer_id,this.first_name,this.last_name,this.email,this.phoneNumber) {
+  Customer(this.customer_id,this.first_name,this.last_name,this.email,this.phoneNumber) {
 
     if (customer_id > ID){
       ID = customer_id + 1;
