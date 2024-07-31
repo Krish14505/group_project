@@ -21,8 +21,9 @@ class Customer {
   ///constructor
   Customer(this.customer_id,this.first_name,this.last_name,this.email,this.phoneNumber,this.address,this.birthday) {
 
-    if (customer_id > ID){
-      ID = customer_id + 1;
-    }
+    if (customer_id >= ID)
+      ID = customer_id + 1; // when loading the page, if the customer_id is more than the ID(1) then it increment the customer_id by 1 and then
+                            //oj
+
   }
 }
