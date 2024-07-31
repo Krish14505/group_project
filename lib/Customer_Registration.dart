@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:group_project/Customer.dart';
+import 'package:group_project/CustomerDAO.dart';
+
+import 'CustomerDatabase.dart';
 
 class CustomerRegistration extends StatefulWidget {
    String  title= "Customer Registration Page" ;
@@ -14,6 +18,9 @@ class CustomerRegistration extends StatefulWidget {
 class CustomerRegistrationState extends State<CustomerRegistration> {
 
 //variables should be defined here.
+//creating the dao object
+late CustomerDAO customerdao ;
+List<Customer> customerLists= [];
 
   ///declare all the variables used in the textfield.
   late TextEditingController _firstName;
@@ -32,6 +39,20 @@ class CustomerRegistrationState extends State<CustomerRegistration> {
     _phoneNumber = TextEditingController();
     _address = TextEditingController();
     _birthday = TextEditingController();
+
+    //creating the database connection
+    $FloorCustomerDatabase.databaseBuilder("app_database.db").build().then((database) {
+      customerdao = database.getCustomerDAO; // instantiate the database object
+
+      //fetch the customer from the customerList and put all into the database
+      customerdao.getAllCustomers().then((ListOfCustomers) {
+        customerLists.addAll(ListOfCustomers); // when loading the page , all the existing customer should be in the list.
+
+      });
+
+    });
+
+
   }
 
   @override
@@ -50,8 +71,8 @@ class CustomerRegistrationState extends State<CustomerRegistration> {
   Widget build(BuildContext context) {
     // TODO: implement build
   return Scaffold(
-    appBar: AppBar(backgroundColor: Colors.black,title: Text(widget.title,style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold)) ,),
-    body: Center (
+    appBar: AppBar(backgroundColor: Colors.cyan,title: Text(widget.title,style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold)) ,),
+    body: SingleChildScrollView (
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
@@ -199,7 +220,16 @@ class CustomerRegistrationState extends State<CustomerRegistration> {
               ),
             ],),
           //creating Register button to register the user as the customer
-          ElevatedButton(onPressed: registerCustomer , child: Text("Register"))
+          SizedBox(
+            width: 200, // Set the width of the button
+            height: 60, // Set the height of the button
+            child: ElevatedButton(
+              onPressed: registerCustomer,
+              child: Text("Register", style: TextStyle(fontSize: 20)), // Adjust font size if needed
+            ),
+          ),
+
+
         ],
       ),
 
@@ -225,10 +255,34 @@ class CustomerRegistrationState extends State<CustomerRegistration> {
           ],
         ),
       );
-    }else {
+    }
+    //each of fields is filled then the following:
+    else {
       var snackBar = SnackBar( content: Text('successfully Registered!', style: TextStyle(fontStyle: FontStyle.italic, fontSize: 18, color: Colors.green),) );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      ///navigate to the list page
+       Navigator.pushNamed(context, "/homePage"); //redirect to the home page
+
+
+        //database stuff to add the customer
+        var newCustomer = Customer(Customer.ID++, _firstName.value.text, _lastName.value.text, _email.value.text, _phoneNumber.value.text, _address.value.text, _birthday.value.text);
+
+        //add to the list first
+         customerLists.add(newCustomer);
+
+        //invoking a method to insert the new customer into the table
+        customerdao.addCustomer(newCustomer);
+
+        //empty all the spaces.
+
+      _firstName.text = " ";
+      _lastName.text =" ";
+      _email.text =  " ";
+      _phoneNumber.text =  " ";
+      _address.text = " ";
+      _birthday.text =  " ";
     }
+
   }
 
 
