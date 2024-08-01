@@ -20,7 +20,7 @@ class CustomerRegistrationState extends State<CustomerRegistration> {
 //variables should be defined here.
 //creating the dao object
 late CustomerDAO customerdao ;
-List<Customer> customerLists= [];
+static List<Customer> customerLists= [];
 
   ///declare all the variables used in the textfield.
   late TextEditingController _firstName;
@@ -261,7 +261,7 @@ List<Customer> customerLists= [];
       var snackBar = SnackBar( content: Text('successfully Registered!', style: TextStyle(fontStyle: FontStyle.italic, fontSize: 18, color: Colors.green),) );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       ///navigate to the list page
-       Navigator.pushNamed(context, "/homePage"); //redirect to the home page
+       Navigator.pushNamed(context, "/listPage"); //redirect to the home page
 
 
         //database stuff to add the customer
