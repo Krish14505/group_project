@@ -21,10 +21,11 @@ class MyApp extends StatelessWidget {
         //it will be sorted & defined as key and value pairs
       '/homePage' : (context) => MyHomePage(title: 'Airline Management',),
       '/registerPage': (context) => CustomerRegistration(),
+     '/listPage' : (context) => CustomerListPage(),
       //add other pages that you have made.
-      '/listPage' : (context) => CustomerListPage(),
 
-      },
+
+    },
       initialRoute: '/homePage',
       title: 'Home page',
       debugShowCheckedModeBanner: false,

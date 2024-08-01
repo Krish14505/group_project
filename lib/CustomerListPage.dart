@@ -161,13 +161,19 @@ class CustomerListPageState extends State<CustomerListPage> {
 //customerDetailsWithForm() that has the format of registration page but in the TextField values would that of the customer selected.
 
 Widget customerDetailsWithForm() {
-    return SingleChildScrollView (
+  if (selectedCustomer == null) {
+
+  } else {
+    return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
 
           SizedBox(height: 20),
-          Text("Welcome to the Registration Page",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic)),
+          Text("Welcome to the Registration Page", style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic)),
 
 
           ///first row for the customer last name and first name.
@@ -176,17 +182,21 @@ Widget customerDetailsWithForm() {
             children: [
               //column for the other field
               Container(
-                width: 350, // Adjust the width as needed
-                padding: const EdgeInsets.all(10.0), // Optional: Add padding
-                margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                width: 350,
+                // Adjust the width as needed
+                padding: const EdgeInsets.all(10.0),
+                // Optional: Add padding
+                margin: const EdgeInsets.all(10.0),
+                // Optional: Add margin
                 decoration: BoxDecoration(
                   color: Colors.white, // Optional: Add background color
-                  borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
+                  borderRadius: BorderRadius.circular(
+                      10.0), // Optional: Add border radius
 
                 ),
                 child: TextField(controller: _firstName,
                     decoration: InputDecoration(
-                        hintText:"Enter  First Name",
+                        hintText: "Enter  First Name",
                         border: OutlineInputBorder(),
                         labelText: "First Name"
                     )),
@@ -195,22 +205,26 @@ Widget customerDetailsWithForm() {
             ],
           ),
 
-          Row (
-            mainAxisAlignment:  MainAxisAlignment.start,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               //column for the other field
               Container(
-                width: 350, // Adjust the width as needed
-                padding: const EdgeInsets.all(10.0), // Optional: Add padding
-                margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                width: 350,
+                // Adjust the width as needed
+                padding: const EdgeInsets.all(10.0),
+                // Optional: Add padding
+                margin: const EdgeInsets.all(10.0),
+                // Optional: Add margin
                 decoration: BoxDecoration(
                   color: Colors.white, // Optional: Add background color
-                  borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
+                  borderRadius: BorderRadius.circular(
+                      10.0), // Optional: Add border radius
 
                 ),
                 child: TextField(controller: _lastName,
                     decoration: InputDecoration(
-                        hintText:"Enter Last Name",
+                        hintText: "Enter Last Name",
                         border: OutlineInputBorder(),
                         labelText: "Last Name"
                     )),
@@ -226,38 +240,46 @@ Widget customerDetailsWithForm() {
               children: [
                 //column for the other field
                 Container(
-                  width: 350, // Adjust the width as needed
-                  padding: const EdgeInsets.all(10.0), // Optional: Add padding
-                  margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                  width: 350,
+                  // Adjust the width as needed
+                  padding: const EdgeInsets.all(10.0),
+                  // Optional: Add padding
+                  margin: const EdgeInsets.all(10.0),
+                  // Optional: Add margin
                   decoration: BoxDecoration(
                     color: Colors.white, // Optional: Add background color
-                    borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
+                    borderRadius: BorderRadius.circular(
+                        10.0), // Optional: Add border radius
 
                   ),
                   child: TextField(controller: _birthday,
                       decoration: InputDecoration(
-                          hintText:"Enter Date Of Birth",
+                          hintText: "Enter Date Of Birth",
                           border: OutlineInputBorder(),
                           labelText: "BirthDate"
                       )),
                 ),
-              ] ),
+              ]),
           //Row for the Phone Number
-          Row (
-            mainAxisAlignment:  MainAxisAlignment.start,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                width: 350, // Adjust the width as needed
-                padding: const EdgeInsets.all(10.0), // Optional: Add padding
-                margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                width: 350,
+                // Adjust the width as needed
+                padding: const EdgeInsets.all(10.0),
+                // Optional: Add padding
+                margin: const EdgeInsets.all(10.0),
+                // Optional: Add margin
                 decoration: BoxDecoration(
                   color: Colors.white, // Optional: Add background color
-                  borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
+                  borderRadius: BorderRadius.circular(
+                      10.0), // Optional: Add border radius
 
                 ),
                 child: TextField(controller: _email,
                     decoration: InputDecoration(
-                        hintText:"Enter Your Email address",
+                        hintText: "Enter Your Email address",
                         border: OutlineInputBorder(),
                         labelText: "Email"
                     )),
@@ -266,21 +288,25 @@ Widget customerDetailsWithForm() {
             ],),
 
           //Row for the Phone Number
-          Row (
-            mainAxisAlignment:  MainAxisAlignment.start,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                width: 350, // Adjust the width as needed
-                padding: const EdgeInsets.all(10.0), // Optional: Add padding
-                margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                width: 350,
+                // Adjust the width as needed
+                padding: const EdgeInsets.all(10.0),
+                // Optional: Add padding
+                margin: const EdgeInsets.all(10.0),
+                // Optional: Add margin
                 decoration: BoxDecoration(
                   color: Colors.white, // Optional: Add background color
-                  borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
+                  borderRadius: BorderRadius.circular(
+                      10.0), // Optional: Add border radius
 
                 ),
                 child: TextField(controller: _phoneNumber,
                     decoration: InputDecoration(
-                        hintText:"Enter phone number ",
+                        hintText: "Enter phone number ",
                         border: OutlineInputBorder(),
                         labelText: "PhoneNumber"
                     )),
@@ -288,21 +314,25 @@ Widget customerDetailsWithForm() {
 
             ],),
 //Row for the Phone Number
-          Row (
-            mainAxisAlignment:  MainAxisAlignment.start,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                width: 350, // Adjust the width as needed
-                padding: const EdgeInsets.all(10.0), // Optional: Add padding
-                margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                width: 350,
+                // Adjust the width as needed
+                padding: const EdgeInsets.all(10.0),
+                // Optional: Add padding
+                margin: const EdgeInsets.all(10.0),
+                // Optional: Add margin
                 decoration: BoxDecoration(
                   color: Colors.white, // Optional: Add background color
-                  borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
+                  borderRadius: BorderRadius.circular(
+                      10.0), // Optional: Add border radius
 
                 ),
                 child: TextField(controller: _address,
                     decoration: InputDecoration(
-                        hintText:"Enter Your Address",
+                        hintText: "Enter Your Address",
                         border: OutlineInputBorder(),
                         labelText: "Address:"
                     )),
@@ -313,25 +343,73 @@ Widget customerDetailsWithForm() {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(height: 20,),
-              Expanded(flex:2,child: FilledButton(onPressed: UpdateCustomer, child: Text("Update"))),
-              SizedBox(width:20 ,),
-              Expanded(flex:2, child: FilledButton(onPressed: DeleteCustomer, child: Text("Delete"))),
+              Expanded(flex: 2,
+                  child: FilledButton(
+                      onPressed: UpdateCustomer, child: Text("Update"))),
+              SizedBox(width: 20,),
+              Expanded(flex: 2,
+                  child: FilledButton(
+                      onPressed: DeleteCustomer, child: Text("Delete"))),
             ],
           )
-
 
 
         ],
       ),
 
     );
-}
+  } // else condition ends..
+} // widget CustomerDetailsWithForm() ends...
 
+  //function to update the customer
   void UpdateCustomer(){
+      if(selectedCustomer != null) {
+        //creating an instance of the updated customer.
+        Customer updatedCustomer = Customer(
+          selectedCustomer!.customer_id, // fetch the selected customer_id from the database.
+          //use the updated text value to update the customer entry.
+          _firstName.text,
+          _lastName.text,
+          _email.text,
+          _phoneNumber.text,
+          _address.text,
+          _birthday.text
+        );
 
+        //call the dao UpdatedCustomer(Customer) method.
+        customerdao.updateCustomer(updatedCustomer).then((value) {
+          //gui to react
+          setState(() {
+
+
+          //update the customer to the list.
+          int index = customerLists.indexWhere((customer) => customer.customer_id == selectedCustomer!.customer_id);
+
+          if(index != null) {
+            customerLists[index] = updatedCustomer;
+          }
+          selectedCustomer = updatedCustomer;
+          });
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Customer updated successfully',style: TextStyle(color: Colors.lightGreen),)));
+        });
+      }
   }
 
   void DeleteCustomer(){
+    setState(() {
+
+      //delete the customer from the database first
+      customerdao.deleteCustomer(selectedCustomer!);
+
+      //and then remove from the customer
+      customerLists.remove(selectedCustomer);
+
+    });
+
+    //make the selectedCustomer as null, because nothing is selected now, the
+    //customer is gone.
+    selectedCustomer = null;
 
   }
 
