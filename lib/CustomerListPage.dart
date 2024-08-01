@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:group_project/Customer.dart';
 import 'package:group_project/CustomerDAO.dart';
+import 'package:group_project/Customer_Registration.dart';
 
 import 'CustomerDatabase.dart';
 
@@ -24,7 +25,7 @@ class CustomerListPageState extends State<CustomerListPage> {
   late CustomerDAO customerdao ;
   Customer ? selectedCustomer;
 
-  List<Customer> customerLists = [];
+  List<Customer> customerLists = CustomerRegistrationState.customerLists;
   ///declare all the variables used in the textfield.
   late TextEditingController _firstName;
   late TextEditingController _lastName;
@@ -110,14 +111,51 @@ class CustomerListPageState extends State<CustomerListPage> {
 
 
 
- //List page that has all the customer from the database
-Widget ListPage(){
+  Widget ListPage(){
     return Center(
       child: Column(
+        children: [
 
-      ),
+          if(customerLists.isEmpty)
+            Text("*There is no Customer added yet*",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),)
+          else
+            Flexible(
+              child: ListView.builder(
+                itemCount: customerLists.length,
+                itemBuilder: (context, index) {
+                  final customer = customerLists[index];
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedCustomer = customer;
+                        _firstName.text = customer.first_name;
+                        _lastName.text = customer.last_name;
+                        _email.text = customer.email;
+                        _phoneNumber.text = customer.phoneNumber;
+                        _address.text = customer.address;
+                        _birthday.text = customer.birthday;
+                      });
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.blue[100], // Different background color
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ListTile(
+                        title: Text('${customer.first_name} ${customer.last_name}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        subtitle: Text(customer.email, style: TextStyle(fontSize: 14)),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            )
+
+        ],),
     );
-}
+  }
 
 
 //customerDetailsWithForm() that has values of the customer
