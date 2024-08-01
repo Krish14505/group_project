@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:group_project/CustomerListPage.dart';
 
 import 'Customer_Registration.dart';
 
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       '/homePage' : (context) => MyHomePage(title: 'Airline Management',),
       '/registerPage': (context) => CustomerRegistration(),
       //add other pages that you have made.
+      '/listPage' : (context) => CustomerListPage(),
 
       },
       initialRoute: '/homePage',
