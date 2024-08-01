@@ -158,8 +158,182 @@ class CustomerListPageState extends State<CustomerListPage> {
   }
 
 
-//customerDetailsWithForm() that has values of the customer
+//customerDetailsWithForm() that has the format of registration page but in the TextField values would that of the customer selected.
+
 Widget customerDetailsWithForm() {
-    return Text(" ");
+    return SingleChildScrollView (
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+
+          SizedBox(height: 20),
+          Text("Welcome to the Registration Page",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic)),
+
+
+          ///first row for the customer last name and first name.
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              //column for the other field
+              Container(
+                width: 350, // Adjust the width as needed
+                padding: const EdgeInsets.all(10.0), // Optional: Add padding
+                margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                decoration: BoxDecoration(
+                  color: Colors.white, // Optional: Add background color
+                  borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
+
+                ),
+                child: TextField(controller: _firstName,
+                    decoration: InputDecoration(
+                        hintText:"Enter  First Name",
+                        border: OutlineInputBorder(),
+                        labelText: "First Name"
+                    )),
+              ),
+
+            ],
+          ),
+
+          Row (
+            mainAxisAlignment:  MainAxisAlignment.start,
+            children: [
+              //column for the other field
+              Container(
+                width: 350, // Adjust the width as needed
+                padding: const EdgeInsets.all(10.0), // Optional: Add padding
+                margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                decoration: BoxDecoration(
+                  color: Colors.white, // Optional: Add background color
+                  borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
+
+                ),
+                child: TextField(controller: _lastName,
+                    decoration: InputDecoration(
+                        hintText:"Enter Last Name",
+                        border: OutlineInputBorder(),
+                        labelText: "Last Name"
+                    )),
+              ),
+
+            ],
+          ),
+
+
+          Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+
+              children: [
+                //column for the other field
+                Container(
+                  width: 350, // Adjust the width as needed
+                  padding: const EdgeInsets.all(10.0), // Optional: Add padding
+                  margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                  decoration: BoxDecoration(
+                    color: Colors.white, // Optional: Add background color
+                    borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
+
+                  ),
+                  child: TextField(controller: _birthday,
+                      decoration: InputDecoration(
+                          hintText:"Enter Date Of Birth",
+                          border: OutlineInputBorder(),
+                          labelText: "BirthDate"
+                      )),
+                ),
+              ] ),
+          //Row for the Phone Number
+          Row (
+            mainAxisAlignment:  MainAxisAlignment.start,
+            children: [
+              Container(
+                width: 350, // Adjust the width as needed
+                padding: const EdgeInsets.all(10.0), // Optional: Add padding
+                margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                decoration: BoxDecoration(
+                  color: Colors.white, // Optional: Add background color
+                  borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
+
+                ),
+                child: TextField(controller: _email,
+                    decoration: InputDecoration(
+                        hintText:"Enter Your Email address",
+                        border: OutlineInputBorder(),
+                        labelText: "Email"
+                    )),
+              ),
+
+            ],),
+
+          //Row for the Phone Number
+          Row (
+            mainAxisAlignment:  MainAxisAlignment.start,
+            children: [
+              Container(
+                width: 350, // Adjust the width as needed
+                padding: const EdgeInsets.all(10.0), // Optional: Add padding
+                margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                decoration: BoxDecoration(
+                  color: Colors.white, // Optional: Add background color
+                  borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
+
+                ),
+                child: TextField(controller: _phoneNumber,
+                    decoration: InputDecoration(
+                        hintText:"Enter phone number ",
+                        border: OutlineInputBorder(),
+                        labelText: "PhoneNumber"
+                    )),
+              ),
+
+            ],),
+//Row for the Phone Number
+          Row (
+            mainAxisAlignment:  MainAxisAlignment.start,
+            children: [
+              Container(
+                width: 350, // Adjust the width as needed
+                padding: const EdgeInsets.all(10.0), // Optional: Add padding
+                margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                decoration: BoxDecoration(
+                  color: Colors.white, // Optional: Add background color
+                  borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
+
+                ),
+                child: TextField(controller: _address,
+                    decoration: InputDecoration(
+                        hintText:"Enter Your Address",
+                        border: OutlineInputBorder(),
+                        labelText: "Address:"
+                    )),
+              ),
+            ],),
+          //creating the two buttons one is to update(save) and one is to delete
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(height: 20,),
+              Expanded(flex:2,child: FilledButton(onPressed: UpdateCustomer, child: Text("Update"))),
+              SizedBox(width:20 ,),
+              Expanded(flex:2, child: FilledButton(onPressed: DeleteCustomer, child: Text("Delete"))),
+            ],
+          )
+
+
+
+        ],
+      ),
+
+    );
 }
+
+  void UpdateCustomer(){
+
+  }
+
+  void DeleteCustomer(){
+
+  }
+
+
 } //end of CustomerListPageState class
