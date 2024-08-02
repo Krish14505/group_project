@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:group_project/Customer.dart';
 import 'package:group_project/CustomerDAO.dart';
+import 'package:group_project/CustomerDataRepository.dart';
 
 import 'CustomerDatabase.dart';
 
@@ -52,6 +53,16 @@ static List<Customer> customerLists= [];
 
     });
 
+    //saved preferences for the previously created customer
+    CustomerDataRepository.first_name = _firstName.value.text;
+    CustomerDataRepository.last_name = _lastName.value.text;
+    CustomerDataRepository.email  = _email.value.text;
+    CustomerDataRepository.phoneNumber = _phoneNumber.value.text;
+    CustomerDataRepository.address = _address.value.text;
+    CustomerDataRepository.birthday = _birthday.value.text;
+
+    //loading the data
+    CustomerDataRepository.loadData();
 
   }
 
@@ -64,6 +75,9 @@ static List<Customer> customerLists= [];
     _address.dispose();
     _birthday.dispose();
     super.dispose();
+
+    CustomerDataRepository.saveData();
+
   }
 
 
