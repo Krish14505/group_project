@@ -162,7 +162,7 @@ class CustomerListPageState extends State<CustomerListPage> {
 
 Widget customerDetailsWithForm() {
   if (selectedCustomer == null) {
-
+    return Text("Nothing is selected ");
   } else {
     return SingleChildScrollView(
       child: Column(
