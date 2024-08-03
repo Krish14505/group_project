@@ -100,11 +100,12 @@ static List<Customer> customerLists= [];
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              ElevatedButton(style: ElevatedButton.styleFrom(elevation: 0),onPressed: () {  }, child: Icon(Icons.person)),
               //column for the other field
               Container(
                 width: 300, // Adjust the width as needed
                 padding: const EdgeInsets.all(10.0), // Optional: Add padding
-                margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                margin: const EdgeInsets.fromLTRB(10, 10, 10, 10), // Optional: Add margin
                 decoration: BoxDecoration(
                   color: Colors.white, // Optional: Add background color
                   borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
@@ -124,11 +125,12 @@ static List<Customer> customerLists= [];
           Row (
             mainAxisAlignment:  MainAxisAlignment.start,
             children: [
+              ElevatedButton(style: ElevatedButton.styleFrom(elevation: 0),onPressed: () { }, child: Icon(Icons.person)),
               //column for the other field
               Container(
                 width: 300, // Adjust the width as needed
                 padding: const EdgeInsets.all(10.0), // Optional: Add padding
-                margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),// Optional: Add margin
                 decoration: BoxDecoration(
                   color: Colors.white, // Optional: Add background color
                   borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
@@ -150,11 +152,12 @@ static List<Customer> customerLists= [];
               mainAxisAlignment: MainAxisAlignment.start,
 
               children: [
+                ElevatedButton(style: ElevatedButton.styleFrom(elevation: 0),onPressed: () {  }, child: Icon(Icons.email_outlined)),
                 //column for the other field
                 Container(
                   width: 300, // Adjust the width as needed
                   padding: const EdgeInsets.all(10.0), // Optional: Add padding
-                  margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                  margin: const EdgeInsets.fromLTRB(10, 10, 10, 10), // Optional: Add margin
                   decoration: BoxDecoration(
                     color: Colors.white, // Optional: Add background color
                     borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
@@ -172,11 +175,11 @@ static List<Customer> customerLists= [];
           Row (
             mainAxisAlignment:  MainAxisAlignment.start,
             children: [
-              ElevatedButton(style: ElevatedButton.styleFrom(elevation: 0),onPressed: emailLauncher, child: Icon(Icons.email_outlined)),
+              ElevatedButton(style: ElevatedButton.styleFrom(elevation: 0),onPressed: emailLauncher , child: Icon(Icons.email_outlined)),
               Container(
                 width: 300, // Adjust the width as needed
                 padding: const EdgeInsets.all(10.0), // Optional: Add padding
-                margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                margin: const EdgeInsets.fromLTRB(10, 10, 10, 10), // Optional: Add margin
                 decoration: BoxDecoration(
                   color: Colors.white, // Optional: Add background color
                   borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
@@ -196,10 +199,11 @@ static List<Customer> customerLists= [];
           Row (
             mainAxisAlignment:  MainAxisAlignment.start,
             children: [
+              ElevatedButton(style: ElevatedButton.styleFrom(elevation: 0),onPressed: PhoneLauncher, child: Icon(Icons.phone)),
               Container(
                 width: 300, // Adjust the width as needed
                 padding: const EdgeInsets.all(10.0), // Optional: Add padding
-                margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                margin: const EdgeInsets.fromLTRB(10, 10, 10, 10), // Optional: Add margin
                 decoration: BoxDecoration(
                   color: Colors.white, // Optional: Add background color
                   borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
@@ -218,10 +222,11 @@ static List<Customer> customerLists= [];
           Row (
             mainAxisAlignment:  MainAxisAlignment.start,
             children: [
+              ElevatedButton(style: ElevatedButton.styleFrom(elevation: 0),onPressed: ()  { }, child: Icon(Icons.home)),
               Container(
                 width: 300, // Adjust the width as needed
                 padding: const EdgeInsets.all(10.0), // Optional: Add padding
-                margin: const EdgeInsets.all(20.0), // Optional: Add margin
+                margin: const EdgeInsets.fromLTRB(10, 10, 10,10), // Optional: Add margin
                 decoration: BoxDecoration(
                   color: Colors.white, // Optional: Add background color
                   borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
@@ -239,10 +244,15 @@ static List<Customer> customerLists= [];
           SizedBox(
             width: 300, // Set the width of the button
             height: 60, // Set the height of the button
-            child: ElevatedButton(
-              onPressed: registerCustomer,
-              child: Text("Register", style: TextStyle(fontSize: 20)), // Adjust font size if needed
-            ),
+            child:
+            Expanded (
+              flex: 10,
+              child: FilledButton(
+                onPressed: registerCustomer,
+                child: Text("Register", style: TextStyle(fontSize: 20)), // Adjust font size if needed
+              ),
+            )
+            ,
           ),
 
 
@@ -303,6 +313,12 @@ static List<Customer> customerLists= [];
 void  emailLauncher() {
   var userTypedEmailAddress = _email.value.text;
   launch("mailto: "+userTypedEmailAddress);
+}
+
+
+void PhoneLauncher() {
+    var userTypedPhoneNumber = _phoneNumber.value.text;
+    launch("tel: "+userTypedPhoneNumber);
 }
 
 
