@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:group_project/Customer.dart';
 import 'package:group_project/CustomerDAO.dart';
 import 'package:group_project/CustomerDataRepository.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'CustomerDatabase.dart';
 
@@ -101,7 +102,7 @@ static List<Customer> customerLists= [];
             children: [
               //column for the other field
               Container(
-                width: 350, // Adjust the width as needed
+                width: 300, // Adjust the width as needed
                 padding: const EdgeInsets.all(10.0), // Optional: Add padding
                 margin: const EdgeInsets.all(10.0), // Optional: Add margin
                 decoration: BoxDecoration(
@@ -125,7 +126,7 @@ static List<Customer> customerLists= [];
             children: [
               //column for the other field
               Container(
-                width: 350, // Adjust the width as needed
+                width: 300, // Adjust the width as needed
                 padding: const EdgeInsets.all(10.0), // Optional: Add padding
                 margin: const EdgeInsets.all(10.0), // Optional: Add margin
                 decoration: BoxDecoration(
@@ -151,7 +152,7 @@ static List<Customer> customerLists= [];
               children: [
                 //column for the other field
                 Container(
-                  width: 350, // Adjust the width as needed
+                  width: 300, // Adjust the width as needed
                   padding: const EdgeInsets.all(10.0), // Optional: Add padding
                   margin: const EdgeInsets.all(10.0), // Optional: Add margin
                   decoration: BoxDecoration(
@@ -171,8 +172,9 @@ static List<Customer> customerLists= [];
           Row (
             mainAxisAlignment:  MainAxisAlignment.start,
             children: [
+              ElevatedButton(style: ElevatedButton.styleFrom(elevation: 0),onPressed: emailLauncher, child: Icon(Icons.email_outlined)),
               Container(
-                width: 350, // Adjust the width as needed
+                width: 300, // Adjust the width as needed
                 padding: const EdgeInsets.all(10.0), // Optional: Add padding
                 margin: const EdgeInsets.all(10.0), // Optional: Add margin
                 decoration: BoxDecoration(
@@ -195,7 +197,7 @@ static List<Customer> customerLists= [];
             mainAxisAlignment:  MainAxisAlignment.start,
             children: [
               Container(
-                width: 350, // Adjust the width as needed
+                width: 300, // Adjust the width as needed
                 padding: const EdgeInsets.all(10.0), // Optional: Add padding
                 margin: const EdgeInsets.all(10.0), // Optional: Add margin
                 decoration: BoxDecoration(
@@ -217,9 +219,9 @@ static List<Customer> customerLists= [];
             mainAxisAlignment:  MainAxisAlignment.start,
             children: [
               Container(
-                width: 350, // Adjust the width as needed
+                width: 300, // Adjust the width as needed
                 padding: const EdgeInsets.all(10.0), // Optional: Add padding
-                margin: const EdgeInsets.all(10.0), // Optional: Add margin
+                margin: const EdgeInsets.all(20.0), // Optional: Add margin
                 decoration: BoxDecoration(
                   color: Colors.white, // Optional: Add background color
                   borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius
@@ -235,7 +237,7 @@ static List<Customer> customerLists= [];
             ],),
           //creating Register button to register the user as the customer
           SizedBox(
-            width: 200, // Set the width of the button
+            width: 300, // Set the width of the button
             height: 60, // Set the height of the button
             child: ElevatedButton(
               onPressed: registerCustomer,
@@ -296,8 +298,13 @@ static List<Customer> customerLists= [];
       _address.text = " ";
       _birthday.text =  " ";
     }
-
   }
+
+void  emailLauncher() {
+  var userTypedEmailAddress = _email.value.text;
+  launch("mailto: "+userTypedEmailAddress);
+}
+
 
 
 }
