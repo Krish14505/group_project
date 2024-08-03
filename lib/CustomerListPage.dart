@@ -170,7 +170,7 @@ Widget customerDetailsWithForm() {
         children: <Widget>[
 
           SizedBox(height: 20),
-          Text("Welcome to the Registration Page", style: TextStyle(
+          Text("Customer Details", style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
               fontStyle: FontStyle.italic)),
