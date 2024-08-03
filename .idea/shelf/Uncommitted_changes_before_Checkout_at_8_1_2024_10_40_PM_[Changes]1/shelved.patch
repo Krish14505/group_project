@@ -1,0 +1,34 @@
+Index: lib/CustomerDataRepository.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/CustomerDataRepository.dart b/lib/CustomerDataRepository.dart
+new file mode 100644
+--- /dev/null	
++++ b/lib/CustomerDataRepository.dart	
+@@ -0,0 +1,23 @@
++///This normal class is used to store the user data as encrypted
++
++class CustomerDataRepository {
++
++  //static --> can be accessed outside of the class..
++  static  String first_name = " ";
++  static String last_name = " ";
++  static  String phoneNumber= " ";
++  static String email= " ";
++  static String address = " ";
++  static  String birthday= " ";
++
++
++  //load the data what saved in each field
++
++
++
++
++}
++
++
++
++}
+\ No newline at end of file

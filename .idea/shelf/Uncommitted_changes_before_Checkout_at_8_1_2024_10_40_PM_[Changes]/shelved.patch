@@ -1,0 +1,348 @@
+Index: lib/Customer_Registration.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import 'package:flutter/cupertino.dart';\r\nimport 'package:flutter/material.dart';\r\nimport 'package:group_project/Customer.dart';\r\nimport 'package:group_project/CustomerDAO.dart';\r\n\r\nimport 'CustomerDatabase.dart';\r\n\r\nclass CustomerRegistration extends StatefulWidget {\r\n   String  title= \"Customer Registration Page\" ;\r\n\r\n  @override\r\n  State<CustomerRegistration> createState() {\r\n    return CustomerRegistrationState();\r\n  }\r\n\r\n}\r\n\r\nclass CustomerRegistrationState extends State<CustomerRegistration> {\r\n\r\n//variables should be defined here.\r\n//creating the dao object\r\nlate CustomerDAO customerdao ;\r\nstatic List<Customer> customerLists= [];\r\n\r\n  ///declare all the variables used in the textfield.\r\n  late TextEditingController _firstName;\r\n  late TextEditingController _lastName;\r\n  late TextEditingController _email;\r\n  late TextEditingController _phoneNumber;\r\n  late TextEditingController _address;\r\n  late TextEditingController _birthday;\r\n\r\n  @override\r\n  void initState() {\r\n    super.initState(); // initialize all the late variables .\r\n    _firstName = TextEditingController();\r\n    _lastName = TextEditingController();\r\n    _email = TextEditingController();\r\n    _phoneNumber = TextEditingController();\r\n    _address = TextEditingController();\r\n    _birthday = TextEditingController();\r\n\r\n    //creating the database connection\r\n    $FloorCustomerDatabase.databaseBuilder(\"app_database.db\").build().then((database) {\r\n      customerdao = database.getCustomerDAO; // instantiate the database object\r\n\r\n      //fetch the customer from the customerList and put all into the database\r\n      customerdao.getAllCustomers().then((ListOfCustomers) {\r\n        customerLists.addAll(ListOfCustomers); // when loading the page , all the existing customer should be in the list.\r\n\r\n      });\r\n\r\n    });\r\n\r\n\r\n  }\r\n\r\n  @override\r\n  void dispose() {\r\n    _firstName.dispose();\r\n    _lastName.dispose();\r\n    _email.dispose();\r\n    _phoneNumber.dispose();\r\n    _address.dispose();\r\n    _birthday.dispose();\r\n    super.dispose();\r\n  }\r\n\r\n\r\n  @override\r\n  Widget build(BuildContext context) {\r\n    // TODO: implement build\r\n  return Scaffold(\r\n    appBar: AppBar(backgroundColor: Colors.cyan,title: Text(widget.title,style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold)) ,),\r\n    body: SingleChildScrollView (\r\n      child: Column(\r\n        mainAxisAlignment: MainAxisAlignment.start,\r\n        children: <Widget>[\r\n\r\n          SizedBox(height: 20),\r\n          Text(\"Welcome to the Registration Page\",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic)),\r\n\r\n\r\n          ///first row for the customer last name and first name.\r\n          Row(\r\n            mainAxisAlignment: MainAxisAlignment.start,\r\n            children: [\r\n              //column for the other field\r\n              Container(\r\n                width: 350, // Adjust the width as needed\r\n                padding: const EdgeInsets.all(10.0), // Optional: Add padding\r\n                margin: const EdgeInsets.all(10.0), // Optional: Add margin\r\n                decoration: BoxDecoration(\r\n                  color: Colors.white, // Optional: Add background color\r\n                  borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius\r\n\r\n                ),\r\n                child: TextField(controller: _firstName,\r\n                    decoration: InputDecoration(\r\n                        hintText:\"Enter  First Name\",\r\n                        border: OutlineInputBorder(),\r\n                        labelText: \"First Name\"\r\n                    )),\r\n              ),\r\n\r\n            ],\r\n          ),\r\n\r\n          Row (\r\n            mainAxisAlignment:  MainAxisAlignment.start,\r\n            children: [\r\n              //column for the other field\r\n              Container(\r\n                width: 350, // Adjust the width as needed\r\n                padding: const EdgeInsets.all(10.0), // Optional: Add padding\r\n                margin: const EdgeInsets.all(10.0), // Optional: Add margin\r\n                decoration: BoxDecoration(\r\n                  color: Colors.white, // Optional: Add background color\r\n                  borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius\r\n\r\n                ),\r\n                child: TextField(controller: _lastName,\r\n                    decoration: InputDecoration(\r\n                        hintText:\"Enter Last Name\",\r\n                        border: OutlineInputBorder(),\r\n                        labelText: \"Last Name\"\r\n                    )),\r\n              ),\r\n\r\n            ],\r\n          ),\r\n\r\n\r\n          Row(\r\n              mainAxisAlignment: MainAxisAlignment.start,\r\n\r\n              children: [\r\n                //column for the other field\r\n                Container(\r\n                  width: 350, // Adjust the width as needed\r\n                  padding: const EdgeInsets.all(10.0), // Optional: Add padding\r\n                  margin: const EdgeInsets.all(10.0), // Optional: Add margin\r\n                  decoration: BoxDecoration(\r\n                    color: Colors.white, // Optional: Add background color\r\n                    borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius\r\n\r\n                  ),\r\n                  child: TextField(controller: _birthday,\r\n                      decoration: InputDecoration(\r\n                          hintText:\"Enter Date Of Birth\",\r\n                          border: OutlineInputBorder(),\r\n                          labelText: \"BirthDate\"\r\n                      )),\r\n                ),\r\n              ] ),\r\n          //Row for the Phone Number\r\n          Row (\r\n            mainAxisAlignment:  MainAxisAlignment.start,\r\n            children: [\r\n              Container(\r\n                width: 350, // Adjust the width as needed\r\n                padding: const EdgeInsets.all(10.0), // Optional: Add padding\r\n                margin: const EdgeInsets.all(10.0), // Optional: Add margin\r\n                decoration: BoxDecoration(\r\n                  color: Colors.white, // Optional: Add background color\r\n                  borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius\r\n\r\n                ),\r\n                child: TextField(controller: _email,\r\n                    decoration: InputDecoration(\r\n                        hintText:\"Enter Your Email address\",\r\n                        border: OutlineInputBorder(),\r\n                        labelText: \"Email\"\r\n                    )),\r\n              ),\r\n\r\n            ],),\r\n\r\n          //Row for the Phone Number\r\n          Row (\r\n            mainAxisAlignment:  MainAxisAlignment.start,\r\n            children: [\r\n              Container(\r\n                width: 350, // Adjust the width as needed\r\n                padding: const EdgeInsets.all(10.0), // Optional: Add padding\r\n                margin: const EdgeInsets.all(10.0), // Optional: Add margin\r\n                decoration: BoxDecoration(\r\n                  color: Colors.white, // Optional: Add background color\r\n                  borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius\r\n\r\n                ),\r\n                child: TextField(controller: _phoneNumber,\r\n                    decoration: InputDecoration(\r\n                        hintText:\"Enter phone number \",\r\n                        border: OutlineInputBorder(),\r\n                        labelText: \"PhoneNumber\"\r\n                    )),\r\n              ),\r\n\r\n            ],),\r\n//Row for the Phone Number\r\n          Row (\r\n            mainAxisAlignment:  MainAxisAlignment.start,\r\n            children: [\r\n              Container(\r\n                width: 350, // Adjust the width as needed\r\n                padding: const EdgeInsets.all(10.0), // Optional: Add padding\r\n                margin: const EdgeInsets.all(10.0), // Optional: Add margin\r\n                decoration: BoxDecoration(\r\n                  color: Colors.white, // Optional: Add background color\r\n                  borderRadius: BorderRadius.circular(10.0), // Optional: Add border radius\r\n\r\n                ),\r\n                child: TextField(controller: _address,\r\n                    decoration: InputDecoration(\r\n                        hintText:\"Enter Your Address\",\r\n                        border: OutlineInputBorder(),\r\n                        labelText: \"Address:\"\r\n                    )),\r\n              ),\r\n            ],),\r\n          //creating Register button to register the user as the customer\r\n          SizedBox(\r\n            width: 200, // Set the width of the button\r\n            height: 60, // Set the height of the button\r\n            child: ElevatedButton(\r\n              onPressed: registerCustomer,\r\n              child: Text(\"Register\", style: TextStyle(fontSize: 20)), // Adjust font size if needed\r\n            ),\r\n          ),\r\n\r\n\r\n        ],\r\n      ),\r\n\r\n    ),\r\n\r\n\r\n  );\r\n\r\n  }\r\n\r\n  void registerCustomer() {\r\n\r\n    if(_firstName.value.text ==  \"\"  || _lastName.value.text == \"\" || _email.value.text == \"\" || _phoneNumber.value.text == \"\" || _birthday.value\r\n        .text == \"\" || _address.value.text == \"\" ) {\r\n      showDialog<String>(\r\n        context: context,\r\n        builder: (BuildContext context) => AlertDialog(\r\n          title: const Text('Incomplete Registration! '),\r\n          content: const Text('Please Fill out all the fields.'),\r\n          actions: <Widget>[\r\n            ElevatedButton(onPressed: () => Navigator.pop(context, 'OK'),\r\n              child: const Text('OK'),),\r\n          ],\r\n        ),\r\n      );\r\n    }\r\n    //each of fields is filled then the following:\r\n    else {\r\n      var snackBar = SnackBar( content: Text('successfully Registered!', style: TextStyle(fontStyle: FontStyle.italic, fontSize: 18, color: Colors.green),) );\r\n      ScaffoldMessenger.of(context).showSnackBar(snackBar);\r\n      ///navigate to the list page\r\n       Navigator.pushNamed(context, \"/listPage\"); //redirect to the home page\r\n\r\n\r\n        //database stuff to add the customer\r\n        var newCustomer = Customer(Customer.ID++, _firstName.value.text, _lastName.value.text, _email.value.text, _phoneNumber.value.text, _address.value.text, _birthday.value.text);\r\n\r\n        //add to the list first\r\n         customerLists.add(newCustomer);\r\n\r\n        //invoking a method to insert the new customer into the table\r\n        customerdao.addCustomer(newCustomer);\r\n\r\n        //empty all the spaces.\r\n\r\n      _firstName.text = \" \";\r\n      _lastName.text =\" \";\r\n      _email.text =  \" \";\r\n      _phoneNumber.text =  \" \";\r\n      _address.text = \" \";\r\n      _birthday.text =  \" \";\r\n    }\r\n\r\n  }\r\n\r\n\r\n}
+===================================================================
+diff --git a/lib/Customer_Registration.dart b/lib/Customer_Registration.dart
+--- a/lib/Customer_Registration.dart	
++++ b/lib/Customer_Registration.dart	
+@@ -22,7 +22,7 @@
+ late CustomerDAO customerdao ;
+ static List<Customer> customerLists= [];
+ 
+-  ///declare all the variables used in the textfield.
++  ///declare all the variables used in the TextField.
+   late TextEditingController _firstName;
+   late TextEditingController _lastName;
+   late TextEditingController _email;
+Index: pubspec.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>name: group_project\r\ndescription: \"A new Flutter project.\"\r\n# The following line prevents the package from being accidentally published to\r\n# pub.dev using `flutter pub publish`. This is preferred for private packages.\r\npublish_to: 'none' # Remove this line if you wish to publish to pub.dev\r\n\r\n# The following defines the version and build number for your application.\r\n# A version number is three numbers separated by dots, like 1.2.43\r\n# followed by an optional build number separated by a +.\r\n# Both the version and the builder number may be overridden in flutter\r\n# build by specifying --build-name and --build-number, respectively.\r\n# In Android, build-name is used as versionName while build-number used as versionCode.\r\n# Read more about Android versioning at https://developer.android.com/studio/publish/versioning\r\n# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.\r\n# Read more about iOS versioning at\r\n# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html\r\n# In Windows, build-name is used as the major, minor, and patch parts\r\n# of the product and file versions while build-number is used as the build suffix.\r\nversion: 1.0.0+1\r\n\r\nenvironment:\r\n  sdk: '>=3.3.4 <4.0.0'\r\n\r\n# Dependencies specify other packages that your package needs in order to work.\r\n# To automatically upgrade your package dependencies to the latest versions\r\n# consider running `flutter pub upgrade --major-versions`. Alternatively,\r\n# dependencies can be manually updated by changing the version numbers below to\r\n# the latest version available on pub.dev. To see which dependencies have newer\r\n# versions available, run `flutter pub outdated`.\r\ndependencies:\r\n  flutter:\r\n    sdk: flutter\r\n  floor: ^1.4.0\r\n  flutter_test:\r\n    sdk: flutter\r\n\r\n\r\n\r\n\r\n\r\n\r\n  # The following adds the Cupertino Icons font to your application.\r\n  # Use with the CupertinoIcons class for iOS style icons.\r\n  cupertino_icons: ^1.0.6\r\n\r\ndev_dependencies:\r\n  floor_generator: ^1.4.0\r\n  build_runner: ^2.1.2\r\n\r\n  # The \"flutter_lints\" package below contains a set of recommended lints to\r\n  # encourage good coding practices. The lint set provided by the package is\r\n  # activated in the `analysis_options.yaml` file located at the root of your\r\n  # package. See that file for information about deactivating specific lint\r\n  # rules and activating additional ones.\r\n  flutter_lints: ^3.0.0\r\n\r\n# For information on the generic Dart part of this file, see the\r\n# following page: https://dart.dev/tools/pub/pubspec\r\n\r\n# The following section is specific to Flutter packages.\r\nflutter:\r\n\r\n  # The following line ensures that the Material Icons font is\r\n  # included with your application, so that you can use the icons in\r\n  # the material Icons class.\r\n  uses-material-design: true\r\n\r\n  # To add assets to your application, add an assets section, like this:\r\n  # assets:\r\n  #   - images/a_dot_burr.jpeg\r\n  #   - images/a_dot_ham.jpeg\r\n\r\n  # An image asset can refer to one or more resolution-specific \"variants\", see\r\n  # https://flutter.dev/assets-and-images/#resolution-aware\r\n\r\n  # For details regarding adding assets from package dependencies, see\r\n  # https://flutter.dev/assets-and-images/#from-packages\r\n\r\n  # To add custom fonts to your application, add a fonts section here,\r\n  # in this \"flutter\" section. Each entry in this list should have a\r\n  # \"family\" key with the font family name, and a \"fonts\" key with a\r\n  # list giving the asset and other descriptors for the font. For\r\n  # example:\r\n  # fonts:\r\n  #   - family: Schyler\r\n  #     fonts:\r\n  #       - asset: fonts/Schyler-Regular.ttf\r\n  #       - asset: fonts/Schyler-Italic.ttf\r\n  #         style: italic\r\n  #   - family: Trajan Pro\r\n  #     fonts:\r\n  #       - asset: fonts/TrajanPro.ttf\r\n  #       - asset: fonts/TrajanPro_Bold.ttf\r\n  #         weight: 700\r\n  #\r\n  # For details regarding fonts from package dependencies,\r\n  # see https://flutter.dev/custom-fonts/#from-packages\r\n
+===================================================================
+diff --git a/pubspec.yaml b/pubspec.yaml
+--- a/pubspec.yaml	
++++ b/pubspec.yaml	
+@@ -38,10 +38,11 @@
+ 
+ 
+ 
+-
+   # The following adds the Cupertino Icons font to your application.
+   # Use with the CupertinoIcons class for iOS style icons.
+   cupertino_icons: ^1.0.6
++  encrypt_shared_preferences: ^0.7.4
++  encrypted_shared_preferences: ^3.0.1
+ 
+ dev_dependencies:
+   floor_generator: ^1.4.0
+Index: lib/Customer.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\r\nimport 'package:floor/floor.dart';\r\n\r\n///This class is dedicated as the customer table.\r\n@entity\r\nclass Customer {\r\n\r\n  static int ID = 1 ;\r\n\r\n  ///Primary key of the customers table and other variables\r\n  @primaryKey\r\n  final int customer_id ;\r\n  final String first_name;\r\n  final String last_name;\r\n  final String email;\r\n  final String phoneNumber;\r\n  final String address;\r\n  final String birthday;\r\n\r\n\r\n  ///constructor\r\n  Customer(this.customer_id,this.first_name,this.last_name,this.email,this.phoneNumber,this.address,this.birthday) {\r\n\r\n    if (customer_id >= ID)\r\n      ID = customer_id + 1; // when loading the page, if the customer_id is more than the ID(1) then it increment the customer_id by 1 and then\r\n                            //oj\r\n\r\n  }\r\n}
+===================================================================
+diff --git a/lib/Customer.dart b/lib/Customer.dart
+--- a/lib/Customer.dart	
++++ b/lib/Customer.dart	
+@@ -10,7 +10,7 @@
+   ///Primary key of the customers table and other variables
+   @primaryKey
+   final int customer_id ;
+-  final String first_name;
++   final String first_name;
+   final String last_name;
+   final String email;
+   final String phoneNumber;
+Index: lib/CustomerListPage.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import 'package:flutter/cupertino.dart';\r\nimport 'package:flutter/material.dart';\r\nimport 'package:group_project/Customer.dart';\r\nimport 'package:group_project/CustomerDAO.dart';\r\nimport 'package:group_project/Customer_Registration.dart';\r\n\r\nimport 'CustomerDatabase.dart';\r\n\r\n/**\r\n * This customer list page has two pages: first on the left-hand side it has all the customer\r\n * that are in the database and on the right-hand side the customer information page in the form view with two\r\n * buttons 1)update(saves the data) 2)delete(delete the customer from the database)\r\n */\r\nclass CustomerListPage extends StatefulWidget {\r\n  String title = \"Customer List Page\";\r\n\r\n  @override\r\n  State<CustomerListPage> createState() {\r\n    return CustomerListPageState();\r\n  }\r\n}\r\n\r\nclass CustomerListPageState extends State<CustomerListPage> {\r\n  //variables defined\r\n  late CustomerDAO customerdao ;\r\n  Customer ? selectedCustomer;\r\n\r\n  List<Customer> customerLists = CustomerRegistrationState.customerLists;\r\n  ///declare all the variables used in the textfield.\r\n  late TextEditingController _firstName;\r\n  late TextEditingController _lastName;\r\n  late TextEditingController _email;\r\n  late TextEditingController _phoneNumber;\r\n  late TextEditingController _address;\r\n  late TextEditingController _birthday;\r\n\r\n\r\n\r\n\r\n  @override\r\n  void initState() {\r\n    super.initState(); // initialize all the late variables .\r\n    _firstName = TextEditingController();\r\n    _lastName = TextEditingController();\r\n    _email = TextEditingController();\r\n    _phoneNumber = TextEditingController();\r\n    _address = TextEditingController();\r\n    _birthday = TextEditingController();\r\n\r\n    //creating the database connection\r\n    $FloorCustomerDatabase.databaseBuilder(\"app_database.db\").build().then((database) {\r\n      customerdao = database.getCustomerDAO; // instantiate the database object\r\n\r\n      //fetch the customer from the customerList and put all into the database\r\n      customerdao.getAllCustomers().then((ListOfCustomers) {\r\n        customerLists.addAll(ListOfCustomers); // when loading the page , all the existing customer should be in the list.\r\n\r\n      });\r\n\r\n    });\r\n  }\r\n\r\n  @override\r\n  void dispose() {\r\n    _firstName.dispose();\r\n    _lastName.dispose();\r\n    _email.dispose();\r\n    _phoneNumber.dispose();\r\n    _address.dispose();\r\n    _birthday.dispose();\r\n    super.dispose();\r\n  }\r\n\r\n\r\n  @override\r\n  Widget build(BuildContext context) {\r\n    return Scaffold(\r\n      appBar: AppBar(\r\n        backgroundColor: Colors.cyan,\r\n        title: Text(widget.title,style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),\r\n      ),\r\n      body: responsiveLayout(),\r\n    );\r\n  }\r\n\r\n  //the widget to return the based on the device mode.\r\n Widget responsiveLayout() {\r\n    var size = MediaQuery.of(context).size;\r\n    var height = size.height;\r\n    var width = size.width;\r\n\r\n    //condition to check the mode of the device\r\n    //if the width is greater than 720 and height,then it's in landscape mode\r\n    //if not,then it is in potrait mode\r\n\r\n   if(width > height && width > 720){\r\n     return Row (\r\n       children: [\r\n         Expanded(flex: 2 , child:ListPage()),\r\n         Expanded(flex:3, child: customerDetailsWithForm()),\r\n       ],\r\n     );\r\n   }else { //potrait mode\r\n      if(selectedCustomer == null) {\r\n        return ListPage();\r\n      }else {\r\n        return customerDetailsWithForm();\r\n      }\r\n   }\r\n }\r\n\r\n\r\n\r\n  Widget ListPage(){\r\n    return Center(\r\n      child: Column(\r\n        children: [\r\n\r\n          if(customerLists.isEmpty)\r\n            Text(\"*There is no Customer added yet*\",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),)\r\n          else\r\n            Flexible(\r\n              child: ListView.builder(\r\n                itemCount: customerLists.length,\r\n                itemBuilder: (context, index) {\r\n                  final customer = customerLists[index];\r\n                  return GestureDetector(\r\n                    onTap: () {\r\n                      setState(() {\r\n                        selectedCustomer = customer;\r\n                        _firstName.text = customer.first_name;\r\n                        _lastName.text = customer.last_name;\r\n                        _email.text = customer.email;\r\n                        _phoneNumber.text = customer.phoneNumber;\r\n                        _address.text = customer.address;\r\n                        _birthday.text = customer.birthday;\r\n                      });\r\n                    },\r\n                    child: Container(\r\n                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),\r\n                      padding: EdgeInsets.all(10),\r\n                      decoration: BoxDecoration(\r\n                        color: Colors.blue[100], // Different background color\r\n                        borderRadius: BorderRadius.circular(10),\r\n                      ),\r\n                      child: ListTile(\r\n                        title: Text('${customer.first_name} ${customer.last_name}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),\r\n                        subtitle: Text(customer.email, style: TextStyle(fontSize: 14)),\r\n                      ),\r\n                    ),\r\n                  );\r\n                },\r\n              ),\r\n            )\r\n\r\n        ],),\r\n    );\r\n  }\r\n\r\n\r\n//customerDetailsWithForm() that has the format of registration page but in the TextField values would that of the customer selected.\r\n\r\nWidget customerDetailsWithForm() {\r\n  if (selectedCustomer == null) {\r\n\r\n  } else {\r\n    return SingleChildScrollView(\r\n      child: Column(\r\n        mainAxisAlignment: MainAxisAlignment.start,\r\n        children: <Widget>[\r\n\r\n          SizedBox(height: 20),\r\n          Text(\"Welcome to the Registration Page\", style: TextStyle(\r\n              fontSize: 25,\r\n              fontWeight: FontWeight.bold,\r\n              fontStyle: FontStyle.italic)),\r\n\r\n\r\n          ///first row for the customer last name and first name.\r\n          Row(\r\n            mainAxisAlignment: MainAxisAlignment.start,\r\n            children: [\r\n              //column for the other field\r\n              Container(\r\n                width: 350,\r\n                // Adjust the width as needed\r\n                padding: const EdgeInsets.all(10.0),\r\n                // Optional: Add padding\r\n                margin: const EdgeInsets.all(10.0),\r\n                // Optional: Add margin\r\n                decoration: BoxDecoration(\r\n                  color: Colors.white, // Optional: Add background color\r\n                  borderRadius: BorderRadius.circular(\r\n                      10.0), // Optional: Add border radius\r\n\r\n                ),\r\n                child: TextField(controller: _firstName,\r\n                    decoration: InputDecoration(\r\n                        hintText: \"Enter  First Name\",\r\n                        border: OutlineInputBorder(),\r\n                        labelText: \"First Name\"\r\n                    )),\r\n              ),\r\n\r\n            ],\r\n          ),\r\n\r\n          Row(\r\n            mainAxisAlignment: MainAxisAlignment.start,\r\n            children: [\r\n              //column for the other field\r\n              Container(\r\n                width: 350,\r\n                // Adjust the width as needed\r\n                padding: const EdgeInsets.all(10.0),\r\n                // Optional: Add padding\r\n                margin: const EdgeInsets.all(10.0),\r\n                // Optional: Add margin\r\n                decoration: BoxDecoration(\r\n                  color: Colors.white, // Optional: Add background color\r\n                  borderRadius: BorderRadius.circular(\r\n                      10.0), // Optional: Add border radius\r\n\r\n                ),\r\n                child: TextField(controller: _lastName,\r\n                    decoration: InputDecoration(\r\n                        hintText: \"Enter Last Name\",\r\n                        border: OutlineInputBorder(),\r\n                        labelText: \"Last Name\"\r\n                    )),\r\n              ),\r\n\r\n            ],\r\n          ),\r\n\r\n\r\n          Row(\r\n              mainAxisAlignment: MainAxisAlignment.start,\r\n\r\n              children: [\r\n                //column for the other field\r\n                Container(\r\n                  width: 350,\r\n                  // Adjust the width as needed\r\n                  padding: const EdgeInsets.all(10.0),\r\n                  // Optional: Add padding\r\n                  margin: const EdgeInsets.all(10.0),\r\n                  // Optional: Add margin\r\n                  decoration: BoxDecoration(\r\n                    color: Colors.white, // Optional: Add background color\r\n                    borderRadius: BorderRadius.circular(\r\n                        10.0), // Optional: Add border radius\r\n\r\n                  ),\r\n                  child: TextField(controller: _birthday,\r\n                      decoration: InputDecoration(\r\n                          hintText: \"Enter Date Of Birth\",\r\n                          border: OutlineInputBorder(),\r\n                          labelText: \"BirthDate\"\r\n                      )),\r\n                ),\r\n              ]),\r\n          //Row for the Phone Number\r\n          Row(\r\n            mainAxisAlignment: MainAxisAlignment.start,\r\n            children: [\r\n              Container(\r\n                width: 350,\r\n                // Adjust the width as needed\r\n                padding: const EdgeInsets.all(10.0),\r\n                // Optional: Add padding\r\n                margin: const EdgeInsets.all(10.0),\r\n                // Optional: Add margin\r\n                decoration: BoxDecoration(\r\n                  color: Colors.white, // Optional: Add background color\r\n                  borderRadius: BorderRadius.circular(\r\n                      10.0), // Optional: Add border radius\r\n\r\n                ),\r\n                child: TextField(controller: _email,\r\n                    decoration: InputDecoration(\r\n                        hintText: \"Enter Your Email address\",\r\n                        border: OutlineInputBorder(),\r\n                        labelText: \"Email\"\r\n                    )),\r\n              ),\r\n\r\n            ],),\r\n\r\n          //Row for the Phone Number\r\n          Row(\r\n            mainAxisAlignment: MainAxisAlignment.start,\r\n            children: [\r\n              Container(\r\n                width: 350,\r\n                // Adjust the width as needed\r\n                padding: const EdgeInsets.all(10.0),\r\n                // Optional: Add padding\r\n                margin: const EdgeInsets.all(10.0),\r\n                // Optional: Add margin\r\n                decoration: BoxDecoration(\r\n                  color: Colors.white, // Optional: Add background color\r\n                  borderRadius: BorderRadius.circular(\r\n                      10.0), // Optional: Add border radius\r\n\r\n                ),\r\n                child: TextField(controller: _phoneNumber,\r\n                    decoration: InputDecoration(\r\n                        hintText: \"Enter phone number \",\r\n                        border: OutlineInputBorder(),\r\n                        labelText: \"PhoneNumber\"\r\n                    )),\r\n              ),\r\n\r\n            ],),\r\n//Row for the Phone Number\r\n          Row(\r\n            mainAxisAlignment: MainAxisAlignment.start,\r\n            children: [\r\n              Container(\r\n                width: 350,\r\n                // Adjust the width as needed\r\n                padding: const EdgeInsets.all(10.0),\r\n                // Optional: Add padding\r\n                margin: const EdgeInsets.all(10.0),\r\n                // Optional: Add margin\r\n                decoration: BoxDecoration(\r\n                  color: Colors.white, // Optional: Add background color\r\n                  borderRadius: BorderRadius.circular(\r\n                      10.0), // Optional: Add border radius\r\n\r\n                ),\r\n                child: TextField(controller: _address,\r\n                    decoration: InputDecoration(\r\n                        hintText: \"Enter Your Address\",\r\n                        border: OutlineInputBorder(),\r\n                        labelText: \"Address:\"\r\n                    )),\r\n              ),\r\n            ],),\r\n          //creating the two buttons one is to update(save) and one is to delete\r\n          Row(\r\n            mainAxisAlignment: MainAxisAlignment.spaceAround,\r\n            children: [\r\n              SizedBox(height: 20,),\r\n              Expanded(flex: 2,\r\n                  child: FilledButton(\r\n                      onPressed: UpdateCustomer, child: Text(\"Update\"))),\r\n              SizedBox(width: 20,),\r\n              Expanded(flex: 2,\r\n                  child: FilledButton(\r\n                      onPressed: DeleteCustomer, child: Text(\"Delete\"))),\r\n            ],\r\n          )\r\n\r\n\r\n        ],\r\n      ),\r\n\r\n    );\r\n  } // else condition ends..\r\n} // widget CustomerDetailsWithForm() ends...\r\n\r\n  //function to update the customer\r\n  void UpdateCustomer(){\r\n      if(selectedCustomer != null) {\r\n        //creating an instance of the updated customer.\r\n        Customer updatedCustomer = Customer(\r\n          selectedCustomer!.customer_id, // fetch the selected customer_id from the database.\r\n          //use the updated text value to update the customer entry.\r\n          _firstName.text,\r\n          _lastName.text,\r\n          _email.text,\r\n          _phoneNumber.text,\r\n          _address.text,\r\n          _birthday.text\r\n        );\r\n\r\n        //call the dao UpdatedCustomer(Customer) method.\r\n        customerdao.updateCustomer(updatedCustomer).then((value) {\r\n          //gui to react\r\n          setState(() {\r\n\r\n\r\n          //update the customer to the list.\r\n          int index = customerLists.indexWhere((customer) => customer.customer_id == selectedCustomer!.customer_id);\r\n\r\n          if(index != null) {\r\n            customerLists[index] = updatedCustomer;\r\n          }\r\n          selectedCustomer = updatedCustomer;\r\n          });\r\n\r\n        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Customer updated successfully',style: TextStyle(color: Colors.lightGreen),)));\r\n        });\r\n      }\r\n  }\r\n\r\n  void DeleteCustomer(){\r\n    setState(() {\r\n\r\n      //delete the customer from the database first\r\n      customerdao.deleteCustomer(selectedCustomer!);\r\n\r\n      //and then remove from the customer\r\n      customerLists.remove(selectedCustomer);\r\n\r\n    });\r\n\r\n    //make the selectedCustomer as null, because nothing is selected now, the\r\n    //customer is gone.\r\n    selectedCustomer = null;\r\n\r\n  }\r\n\r\n\r\n} //end of CustomerListPageState class\r\n
+===================================================================
+diff --git a/lib/CustomerListPage.dart b/lib/CustomerListPage.dart
+--- a/lib/CustomerListPage.dart	
++++ b/lib/CustomerListPage.dart	
+@@ -35,8 +35,6 @@
+   late TextEditingController _birthday;
+ 
+ 
+-
+-
+   @override
+   void initState() {
+     super.initState(); // initialize all the late variables .
+@@ -53,7 +51,10 @@
+ 
+       //fetch the customer from the customerList and put all into the database
+       customerdao.getAllCustomers().then((ListOfCustomers) {
+-        customerLists.addAll(ListOfCustomers); // when loading the page , all the existing customer should be in the list.
++        //whatever the customer table has add them into the list.
++        setState(() {
++          customerLists.addAll(ListOfCustomers); // when loading the page , all the existing customer should be in the list.
++        });
+ 
+       });
+ 
+@@ -127,6 +128,7 @@
+                   return GestureDetector(
+                     onTap: () {
+                       setState(() {
++                      //set the value fetched from their database record and should be display in the customerDetailsWithForm page.
+                         selectedCustomer = customer;
+                         _firstName.text = customer.first_name;
+                         _lastName.text = customer.last_name;
+@@ -162,7 +164,7 @@
+ 
+ Widget customerDetailsWithForm() {
+   if (selectedCustomer == null) {
+-
++    return Text("Customer not Selected ! ");
+   } else {
+     return SingleChildScrollView(
+       child: Column(
+@@ -391,7 +393,7 @@
+           selectedCustomer = updatedCustomer;
+           });
+ 
+-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Customer updated successfully',style: TextStyle(color: Colors.lightGreen),)));
++        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Customer updated successfully',style: TextStyle(color: Colors.redAccent),),backgroundColor: Colors.teal,));
+         });
+       }
+   }
+@@ -407,11 +409,12 @@
+ 
+     });
+ 
++    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Customer deleted successfully',style: TextStyle(color: Colors.red),)));
++
+     //make the selectedCustomer as null, because nothing is selected now, the
+     //customer is gone.
+     selectedCustomer = null;
+ 
+   }
+ 
+-
+ } //end of CustomerListPageState class
+Index: macos/Flutter/GeneratedPluginRegistrant.swift
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//\r\n//  Generated file. Do not edit.\r\n//\r\n\r\nimport FlutterMacOS\r\nimport Foundation\r\n\r\nimport sqflite\r\n\r\nfunc RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {\r\n  SqflitePlugin.register(with: registry.registrar(forPlugin: \"SqflitePlugin\"))\r\n}\r\n
+===================================================================
+diff --git a/macos/Flutter/GeneratedPluginRegistrant.swift b/macos/Flutter/GeneratedPluginRegistrant.swift
+--- a/macos/Flutter/GeneratedPluginRegistrant.swift	
++++ b/macos/Flutter/GeneratedPluginRegistrant.swift	
+@@ -5,8 +5,10 @@
+ import FlutterMacOS
+ import Foundation
+ 
++import shared_preferences_foundation
+ import sqflite
+ 
+ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
++  SharedPreferencesPlugin.register(with: registry.registrar(forPlugin: "SharedPreferencesPlugin"))
+   SqflitePlugin.register(with: registry.registrar(forPlugin: "SqflitePlugin"))
+ }
+Index: pubspec.lock
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Generated by pub\r\n# See https://dart.dev/tools/pub/glossary#lockfile\r\npackages:\r\n  _fe_analyzer_shared:\r\n    dependency: transitive\r\n    description:\r\n      name: _fe_analyzer_shared\r\n      sha256: \"0b2f2bd91ba804e53a61d757b986f89f1f9eaed5b11e4b2f5a2468d86d6c9fc7\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"67.0.0\"\r\n  analyzer:\r\n    dependency: transitive\r\n    description:\r\n      name: analyzer\r\n      sha256: \"37577842a27e4338429a1cbc32679d508836510b056f1eedf0c8d20e39c1383d\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"6.4.1\"\r\n  args:\r\n    dependency: transitive\r\n    description:\r\n      name: args\r\n      sha256: \"7cf60b9f0cc88203c5a190b4cd62a99feea42759a7fa695010eb5de1c0b2252a\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.5.0\"\r\n  async:\r\n    dependency: transitive\r\n    description:\r\n      name: async\r\n      sha256: \"947bfcf187f74dbc5e146c9eb9c0f10c9f8b30743e341481c1e2ed3ecc18c20c\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.11.0\"\r\n  boolean_selector:\r\n    dependency: transitive\r\n    description:\r\n      name: boolean_selector\r\n      sha256: \"6cfb5af12253eaf2b368f07bacc5a80d1301a071c73360d746b7f2e32d762c66\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.1.1\"\r\n  build:\r\n    dependency: transitive\r\n    description:\r\n      name: build\r\n      sha256: \"80184af8b6cb3e5c1c4ec6d8544d27711700bc3e6d2efad04238c7b5290889f0\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.4.1\"\r\n  build_config:\r\n    dependency: transitive\r\n    description:\r\n      name: build_config\r\n      sha256: bf80fcfb46a29945b423bd9aad884590fb1dc69b330a4d4700cac476af1708d1\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.1.1\"\r\n  build_daemon:\r\n    dependency: transitive\r\n    description:\r\n      name: build_daemon\r\n      sha256: \"0343061a33da9c5810b2d6cee51945127d8f4c060b7fbdd9d54917f0a3feaaa1\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"4.0.1\"\r\n  build_resolvers:\r\n    dependency: transitive\r\n    description:\r\n      name: build_resolvers\r\n      sha256: \"339086358431fa15d7eca8b6a36e5d783728cf025e559b834f4609a1fcfb7b0a\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.4.2\"\r\n  build_runner:\r\n    dependency: \"direct dev\"\r\n    description:\r\n      name: build_runner\r\n      sha256: \"3ac61a79bfb6f6cc11f693591063a7f19a7af628dc52f141743edac5c16e8c22\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.4.9\"\r\n  build_runner_core:\r\n    dependency: transitive\r\n    description:\r\n      name: build_runner_core\r\n      sha256: \"4ae8ffe5ac758da294ecf1802f2aff01558d8b1b00616aa7538ea9a8a5d50799\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"7.3.0\"\r\n  built_collection:\r\n    dependency: transitive\r\n    description:\r\n      name: built_collection\r\n      sha256: \"376e3dd27b51ea877c28d525560790aee2e6fbb5f20e2f85d5081027d94e2100\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"5.1.1\"\r\n  built_value:\r\n    dependency: transitive\r\n    description:\r\n      name: built_value\r\n      sha256: c7913a9737ee4007efedaffc968c049fd0f3d0e49109e778edc10de9426005cb\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"8.9.2\"\r\n  characters:\r\n    dependency: transitive\r\n    description:\r\n      name: characters\r\n      sha256: \"04a925763edad70e8443c99234dc3328f442e811f1d8fd1a72f1c8ad0f69a605\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.3.0\"\r\n  charcode:\r\n    dependency: transitive\r\n    description:\r\n      name: charcode\r\n      sha256: fb98c0f6d12c920a02ee2d998da788bca066ca5f148492b7085ee23372b12306\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.3.1\"\r\n  checked_yaml:\r\n    dependency: transitive\r\n    description:\r\n      name: checked_yaml\r\n      sha256: feb6bed21949061731a7a75fc5d2aa727cf160b91af9a3e464c5e3a32e28b5ff\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.0.3\"\r\n  clock:\r\n    dependency: transitive\r\n    description:\r\n      name: clock\r\n      sha256: cb6d7f03e1de671e34607e909a7213e31d7752be4fb66a86d29fe1eb14bfb5cf\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.1.1\"\r\n  code_builder:\r\n    dependency: transitive\r\n    description:\r\n      name: code_builder\r\n      sha256: f692079e25e7869c14132d39f223f8eec9830eb76131925143b2129c4bb01b37\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"4.10.0\"\r\n  collection:\r\n    dependency: transitive\r\n    description:\r\n      name: collection\r\n      sha256: ee67cb0715911d28db6bf4af1026078bd6f0128b07a5f66fb2ed94ec6783c09a\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.18.0\"\r\n  convert:\r\n    dependency: transitive\r\n    description:\r\n      name: convert\r\n      sha256: \"0f08b14755d163f6e2134cb58222dd25ea2a2ee8a195e53983d57c075324d592\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.1.1\"\r\n  crypto:\r\n    dependency: transitive\r\n    description:\r\n      name: crypto\r\n      sha256: ff625774173754681d66daaf4a448684fb04b78f902da9cb3d308c19cc5e8bab\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.0.3\"\r\n  cupertino_icons:\r\n    dependency: \"direct main\"\r\n    description:\r\n      name: cupertino_icons\r\n      sha256: ba631d1c7f7bef6b729a622b7b752645a2d076dba9976925b8f25725a30e1ee6\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.0.8\"\r\n  dart_style:\r\n    dependency: transitive\r\n    description:\r\n      name: dart_style\r\n      sha256: \"99e066ce75c89d6b29903d788a7bb9369cf754f7b24bf70bf4b6d6d6b26853b9\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.3.6\"\r\n  dev_build:\r\n    dependency: transitive\r\n    description:\r\n      name: dev_build\r\n      sha256: c58c2ef387bdb4a2a770e90497d50f19c5363c046deb89e9b5bfa6f08986ef87\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.0.0+3\"\r\n  fake_async:\r\n    dependency: transitive\r\n    description:\r\n      name: fake_async\r\n      sha256: \"511392330127add0b769b75a987850d136345d9227c6b94c96a04cf4a391bf78\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.3.1\"\r\n  ffi:\r\n    dependency: transitive\r\n    description:\r\n      name: ffi\r\n      sha256: \"493f37e7df1804778ff3a53bd691d8692ddf69702cf4c1c1096a2e41b4779e21\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.1.2\"\r\n  file:\r\n    dependency: transitive\r\n    description:\r\n      name: file\r\n      sha256: \"5fc22d7c25582e38ad9a8515372cd9a93834027aacf1801cf01164dac0ffa08c\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"7.0.0\"\r\n  fixnum:\r\n    dependency: transitive\r\n    description:\r\n      name: fixnum\r\n      sha256: \"25517a4deb0c03aa0f32fd12db525856438902d9c16536311e76cdc57b31d7d1\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.1.0\"\r\n  floor:\r\n    dependency: \"direct main\"\r\n    description:\r\n      name: floor\r\n      sha256: c1b06023912b5b8e49deb6a9d867863c535ae1a232d991c3582bba3ee8687867\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.5.0\"\r\n  floor_annotation:\r\n    dependency: transitive\r\n    description:\r\n      name: floor_annotation\r\n      sha256: a40949580a7ab0eee572686e2d3b1638fd6bd6a753e661d792ab4236b365b23b\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.5.0\"\r\n  floor_common:\r\n    dependency: transitive\r\n    description:\r\n      name: floor_common\r\n      sha256: \"41c9914862f83a821815e1b1ffd47a1e1ae2130c35ff882ba2d000a67713ba64\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.5.0\"\r\n  floor_generator:\r\n    dependency: \"direct dev\"\r\n    description:\r\n      name: floor_generator\r\n      sha256: \"1499b3ab878a807e6fbe6f140dc014124845cd1df3090a113aae5fa7577a1e77\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.5.0\"\r\n  flutter:\r\n    dependency: \"direct main\"\r\n    description: flutter\r\n    source: sdk\r\n    version: \"0.0.0\"\r\n  flutter_lints:\r\n    dependency: \"direct dev\"\r\n    description:\r\n      name: flutter_lints\r\n      sha256: \"9e8c3858111da373efc5aa341de011d9bd23e2c5c5e0c62bccf32438e192d7b1\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.0.2\"\r\n  flutter_test:\r\n    dependency: \"direct main\"\r\n    description: flutter\r\n    source: sdk\r\n    version: \"0.0.0\"\r\n  frontend_server_client:\r\n    dependency: transitive\r\n    description:\r\n      name: frontend_server_client\r\n      sha256: f64a0333a82f30b0cca061bc3d143813a486dc086b574bfb233b7c1372427694\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"4.0.0\"\r\n  glob:\r\n    dependency: transitive\r\n    description:\r\n      name: glob\r\n      sha256: \"0e7014b3b7d4dac1ca4d6114f82bf1782ee86745b9b42a92c9289c23d8a0ab63\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.1.2\"\r\n  graphs:\r\n    dependency: transitive\r\n    description:\r\n      name: graphs\r\n      sha256: aedc5a15e78fc65a6e23bcd927f24c64dd995062bcd1ca6eda65a3cff92a4d19\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.3.1\"\r\n  http:\r\n    dependency: transitive\r\n    description:\r\n      name: http\r\n      sha256: b9c29a161230ee03d3ccf545097fccd9b87a5264228c5d348202e0f0c28f9010\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.2.2\"\r\n  http_multi_server:\r\n    dependency: transitive\r\n    description:\r\n      name: http_multi_server\r\n      sha256: \"97486f20f9c2f7be8f514851703d0119c3596d14ea63227af6f7a481ef2b2f8b\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.2.1\"\r\n  http_parser:\r\n    dependency: transitive\r\n    description:\r\n      name: http_parser\r\n      sha256: \"2aa08ce0341cc9b354a498388e30986515406668dbcc4f7c950c3e715496693b\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"4.0.2\"\r\n  io:\r\n    dependency: transitive\r\n    description:\r\n      name: io\r\n      sha256: \"2ec25704aba361659e10e3e5f5d672068d332fc8ac516421d483a11e5cbd061e\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.0.4\"\r\n  js:\r\n    dependency: transitive\r\n    description:\r\n      name: js\r\n      sha256: c1b2e9b5ea78c45e1a0788d29606ba27dc5f71f019f32ca5140f61ef071838cf\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.7.1\"\r\n  json_annotation:\r\n    dependency: transitive\r\n    description:\r\n      name: json_annotation\r\n      sha256: \"1ce844379ca14835a50d2f019a3099f419082cfdd231cd86a142af94dd5c6bb1\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"4.9.0\"\r\n  leak_tracker:\r\n    dependency: transitive\r\n    description:\r\n      name: leak_tracker\r\n      sha256: \"78eb209deea09858f5269f5a5b02be4049535f568c07b275096836f01ea323fa\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"10.0.0\"\r\n  leak_tracker_flutter_testing:\r\n    dependency: transitive\r\n    description:\r\n      name: leak_tracker_flutter_testing\r\n      sha256: b46c5e37c19120a8a01918cfaf293547f47269f7cb4b0058f21531c2465d6ef0\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.0.1\"\r\n  leak_tracker_testing:\r\n    dependency: transitive\r\n    description:\r\n      name: leak_tracker_testing\r\n      sha256: a597f72a664dbd293f3bfc51f9ba69816f84dcd403cdac7066cb3f6003f3ab47\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.0.1\"\r\n  lints:\r\n    dependency: transitive\r\n    description:\r\n      name: lints\r\n      sha256: cbf8d4b858bb0134ef3ef87841abdf8d63bfc255c266b7bf6b39daa1085c4290\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.0.0\"\r\n  lists:\r\n    dependency: transitive\r\n    description:\r\n      name: lists\r\n      sha256: \"4ca5c19ae4350de036a7e996cdd1ee39c93ac0a2b840f4915459b7d0a7d4ab27\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.0.1\"\r\n  logging:\r\n    dependency: transitive\r\n    description:\r\n      name: logging\r\n      sha256: \"623a88c9594aa774443aa3eb2d41807a48486b5613e67599fb4c41c0ad47c340\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.2.0\"\r\n  matcher:\r\n    dependency: transitive\r\n    description:\r\n      name: matcher\r\n      sha256: d2323aa2060500f906aa31a895b4030b6da3ebdcc5619d14ce1aada65cd161cb\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.12.16+1\"\r\n  material_color_utilities:\r\n    dependency: transitive\r\n    description:\r\n      name: material_color_utilities\r\n      sha256: \"0e0a020085b65b6083975e499759762399b4475f766c21668c4ecca34ea74e5a\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.8.0\"\r\n  meta:\r\n    dependency: transitive\r\n    description:\r\n      name: meta\r\n      sha256: d584fa6707a52763a52446f02cc621b077888fb63b93bbcb1143a7be5a0c0c04\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.11.0\"\r\n  mime:\r\n    dependency: transitive\r\n    description:\r\n      name: mime\r\n      sha256: \"2e123074287cc9fd6c09de8336dae606d1ddb88d9ac47358826db698c176a1f2\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.0.5\"\r\n  package_config:\r\n    dependency: transitive\r\n    description:\r\n      name: package_config\r\n      sha256: \"1c5b77ccc91e4823a5af61ee74e6b972db1ef98c2ff5a18d3161c982a55448bd\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.1.0\"\r\n  path:\r\n    dependency: transitive\r\n    description:\r\n      name: path\r\n      sha256: \"087ce49c3f0dc39180befefc60fdb4acd8f8620e5682fe2476afd0b3688bb4af\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.9.0\"\r\n  pool:\r\n    dependency: transitive\r\n    description:\r\n      name: pool\r\n      sha256: \"20fe868b6314b322ea036ba325e6fc0711a22948856475e2c2b6306e8ab39c2a\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.5.1\"\r\n  process_run:\r\n    dependency: transitive\r\n    description:\r\n      name: process_run\r\n      sha256: bc3c841708c7ea5afdf810f70b7a3e453b45a11c2d0a0b1073f3ece7ec793dfa\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.0.1\"\r\n  pub_semver:\r\n    dependency: transitive\r\n    description:\r\n      name: pub_semver\r\n      sha256: \"40d3ab1bbd474c4c2328c91e3a7df8c6dd629b79ece4c4bd04bee496a224fb0c\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.1.4\"\r\n  pubspec_parse:\r\n    dependency: transitive\r\n    description:\r\n      name: pubspec_parse\r\n      sha256: c799b721d79eb6ee6fa56f00c04b472dcd44a30d258fac2174a6ec57302678f8\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.3.0\"\r\n  shelf:\r\n    dependency: transitive\r\n    description:\r\n      name: shelf\r\n      sha256: ad29c505aee705f41a4d8963641f91ac4cee3c8fad5947e033390a7bd8180fa4\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.4.1\"\r\n  shelf_web_socket:\r\n    dependency: transitive\r\n    description:\r\n      name: shelf_web_socket\r\n      sha256: \"9ca081be41c60190ebcb4766b2486a7d50261db7bd0f5d9615f2d653637a84c1\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.0.4\"\r\n  sky_engine:\r\n    dependency: transitive\r\n    description: flutter\r\n    source: sdk\r\n    version: \"0.0.99\"\r\n  source_gen:\r\n    dependency: transitive\r\n    description:\r\n      name: source_gen\r\n      sha256: \"14658ba5f669685cd3d63701d01b31ea748310f7ab854e471962670abcf57832\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.5.0\"\r\n  source_span:\r\n    dependency: transitive\r\n    description:\r\n      name: source_span\r\n      sha256: \"53e943d4206a5e30df338fd4c6e7a077e02254531b138a15aec3bd143c1a8b3c\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.10.0\"\r\n  sqflite:\r\n    dependency: transitive\r\n    description:\r\n      name: sqflite\r\n      sha256: a43e5a27235518c03ca238e7b4732cf35eabe863a369ceba6cbefa537a66f16d\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.3.3+1\"\r\n  sqflite_common:\r\n    dependency: transitive\r\n    description:\r\n      name: sqflite_common\r\n      sha256: \"3da423ce7baf868be70e2c0976c28a1bb2f73644268b7ffa7d2e08eab71f16a4\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.5.4\"\r\n  sqflite_common_ffi:\r\n    dependency: transitive\r\n    description:\r\n      name: sqflite_common_ffi\r\n      sha256: \"4d6137c29e930d6e4a8ff373989dd9de7bac12e3bc87bce950f6e844e8ad3bb5\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.3.3\"\r\n  sqflite_common_ffi_web:\r\n    dependency: transitive\r\n    description:\r\n      name: sqflite_common_ffi_web\r\n      sha256: cfc9d1c61a3e06e5b2e96994a44b11125b4f451fee95b9fad8bd473b4613d592\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.4.3+1\"\r\n  sqlite3:\r\n    dependency: transitive\r\n    description:\r\n      name: sqlite3\r\n      sha256: b384f598b813b347c5a7e5ffad82cbaff1bec3d1561af267041e66f6f0899295\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.4.3\"\r\n  sqlparser:\r\n    dependency: transitive\r\n    description:\r\n      name: sqlparser\r\n      sha256: \"7b20045d1ccfb7bc1df7e8f9fee5ae58673fce6ff62cefbb0e0fd7214e90e5a0\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.34.1\"\r\n  stack_trace:\r\n    dependency: transitive\r\n    description:\r\n      name: stack_trace\r\n      sha256: \"73713990125a6d93122541237550ee3352a2d84baad52d375a4cad2eb9b7ce0b\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.11.1\"\r\n  stream_channel:\r\n    dependency: transitive\r\n    description:\r\n      name: stream_channel\r\n      sha256: ba2aa5d8cc609d96bbb2899c28934f9e1af5cddbd60a827822ea467161eb54e7\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.1.2\"\r\n  stream_transform:\r\n    dependency: transitive\r\n    description:\r\n      name: stream_transform\r\n      sha256: \"14a00e794c7c11aa145a170587321aedce29769c08d7f58b1d141da75e3b1c6f\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.1.0\"\r\n  string_scanner:\r\n    dependency: transitive\r\n    description:\r\n      name: string_scanner\r\n      sha256: \"556692adab6cfa87322a115640c11f13cb77b3f076ddcc5d6ae3c20242bedcde\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.2.0\"\r\n  strings:\r\n    dependency: transitive\r\n    description:\r\n      name: strings\r\n      sha256: \"052836499f03897d3860a603b330c1ea3c8a14177b21f34b15a1295f36024aae\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.1.2\"\r\n  synchronized:\r\n    dependency: transitive\r\n    description:\r\n      name: synchronized\r\n      sha256: \"539ef412b170d65ecdafd780f924e5be3f60032a1128df156adad6c5b373d558\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.1.0+1\"\r\n  term_glyph:\r\n    dependency: transitive\r\n    description:\r\n      name: term_glyph\r\n      sha256: a29248a84fbb7c79282b40b8c72a1209db169a2e0542bce341da992fe1bc7e84\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.2.1\"\r\n  test_api:\r\n    dependency: transitive\r\n    description:\r\n      name: test_api\r\n      sha256: \"5c2f730018264d276c20e4f1503fd1308dfbbae39ec8ee63c5236311ac06954b\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.6.1\"\r\n  timing:\r\n    dependency: transitive\r\n    description:\r\n      name: timing\r\n      sha256: \"70a3b636575d4163c477e6de42f247a23b315ae20e86442bebe32d3cabf61c32\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.0.1\"\r\n  typed_data:\r\n    dependency: transitive\r\n    description:\r\n      name: typed_data\r\n      sha256: facc8d6582f16042dd49f2463ff1bd6e2c9ef9f3d5da3d9b087e244a7b564b3c\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.3.2\"\r\n  unicode:\r\n    dependency: transitive\r\n    description:\r\n      name: unicode\r\n      sha256: \"0f69e46593d65245774d4f17125c6084d2c20b4e473a983f6e21b7d7762218f1\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.3.1\"\r\n  vector_math:\r\n    dependency: transitive\r\n    description:\r\n      name: vector_math\r\n      sha256: \"80b3257d1492ce4d091729e3a67a60407d227c27241d6927be0130c98e741803\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.1.4\"\r\n  vm_service:\r\n    dependency: transitive\r\n    description:\r\n      name: vm_service\r\n      sha256: b3d56ff4341b8f182b96aceb2fa20e3dcb336b9f867bc0eafc0de10f1048e957\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"13.0.0\"\r\n  watcher:\r\n    dependency: transitive\r\n    description:\r\n      name: watcher\r\n      sha256: \"3d2ad6751b3c16cf07c7fca317a1413b3f26530319181b37e3b9039b84fc01d8\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.1.0\"\r\n  web:\r\n    dependency: transitive\r\n    description:\r\n      name: web\r\n      sha256: \"97da13628db363c635202ad97068d47c5b8aa555808e7a9411963c533b449b27\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.5.1\"\r\n  web_socket_channel:\r\n    dependency: transitive\r\n    description:\r\n      name: web_socket_channel\r\n      sha256: \"58c6666b342a38816b2e7e50ed0f1e261959630becd4c879c4f26bfa14aa5a42\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.4.5\"\r\n  yaml:\r\n    dependency: transitive\r\n    description:\r\n      name: yaml\r\n      sha256: \"75769501ea3489fca56601ff33454fe45507ea3bfb014161abc3b43ae25989d5\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.1.2\"\r\nsdks:\r\n  dart: \">=3.3.4 <4.0.0\"\r\n  flutter: \">=3.7.0\"\r\n
+===================================================================
+diff --git a/pubspec.lock b/pubspec.lock
+--- a/pubspec.lock	
++++ b/pubspec.lock	
+@@ -25,6 +25,14 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "2.5.0"
++  asn1lib:
++    dependency: transitive
++    description:
++      name: asn1lib
++      sha256: "58082b3f0dca697204dbab0ef9ff208bfaea7767ea771076af9a343488428dda"
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.5.3"
+   async:
+     dependency: transitive
+     description:
+@@ -193,6 +201,30 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "1.0.0+3"
++  encrypt:
++    dependency: transitive
++    description:
++      name: encrypt
++      sha256: "62d9aa4670cc2a8798bab89b39fc71b6dfbacf615de6cf5001fb39f7e4a996a2"
++      url: "https://pub.dev"
++    source: hosted
++    version: "5.0.3"
++  encrypt_shared_preferences:
++    dependency: "direct main"
++    description:
++      name: encrypt_shared_preferences
++      sha256: ce0ffddcac0787d6f824739a06e122841be5778e6dcf1edc20ae413cd8047dfc
++      url: "https://pub.dev"
++    source: hosted
++    version: "0.7.4"
++  encrypted_shared_preferences:
++    dependency: "direct main"
++    description:
++      name: encrypted_shared_preferences
++      sha256: f4109e4d176a81b203ee120b79b30c1ab93dfd9eee03cac5b8c10a888c231639
++      url: "https://pub.dev"
++    source: hosted
++    version: "3.0.1"
+   fake_async:
+     dependency: transitive
+     description:
+@@ -272,6 +304,11 @@
+     version: "3.0.2"
+   flutter_test:
+     dependency: "direct main"
++    description: flutter
++    source: sdk
++    version: "0.0.0"
++  flutter_web_plugins:
++    dependency: transitive
+     description: flutter
+     source: sdk
+     version: "0.0.0"
+@@ -443,6 +480,54 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "1.9.0"
++  path_provider_linux:
++    dependency: transitive
++    description:
++      name: path_provider_linux
++      sha256: f7a1fe3a634fe7734c8d3f2766ad746ae2a2884abe22e241a8b301bf5cac3279
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.2.1"
++  path_provider_platform_interface:
++    dependency: transitive
++    description:
++      name: path_provider_platform_interface
++      sha256: "88f5779f72ba699763fa3a3b06aa4bf6de76c8e5de842cf6f29e2e06476c2334"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.1.2"
++  path_provider_windows:
++    dependency: transitive
++    description:
++      name: path_provider_windows
++      sha256: bd6f00dbd873bfb70d0761682da2b3a2c2fccc2b9e84c495821639601d81afe7
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.3.0"
++  platform:
++    dependency: transitive
++    description:
++      name: platform
++      sha256: "9b71283fc13df574056616011fb138fd3b793ea47cc509c189a6c3fa5f8a1a65"
++      url: "https://pub.dev"
++    source: hosted
++    version: "3.1.5"
++  plugin_platform_interface:
++    dependency: transitive
++    description:
++      name: plugin_platform_interface
++      sha256: "4820fbfdb9478b1ebae27888254d445073732dae3d6ea81f0b7e06d5dedc3f02"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.1.8"
++  pointycastle:
++    dependency: transitive
++    description:
++      name: pointycastle
++      sha256: "4be0097fcf3fd3e8449e53730c631200ebc7b88016acecab2b0da2f0149222fe"
++      url: "https://pub.dev"
++    source: hosted
++    version: "3.9.1"
+   pool:
+     dependency: transitive
+     description:
+@@ -475,6 +560,62 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "1.3.0"
++  shared_preferences:
++    dependency: transitive
++    description:
++      name: shared_preferences
++      sha256: d3bbe5553a986e83980916ded2f0b435ef2e1893dfaa29d5a7a790d0eca12180
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.2.3"
++  shared_preferences_android:
++    dependency: transitive
++    description:
++      name: shared_preferences_android
++      sha256: "1ee8bf911094a1b592de7ab29add6f826a7331fb854273d55918693d5364a1f2"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.2.2"
++  shared_preferences_foundation:
++    dependency: transitive
++    description:
++      name: shared_preferences_foundation
++      sha256: "671e7a931f55a08aa45be2a13fe7247f2a41237897df434b30d2012388191833"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.5.0"
++  shared_preferences_linux:
++    dependency: transitive
++    description:
++      name: shared_preferences_linux
++      sha256: "2ba0510d3017f91655b7543e9ee46d48619de2a2af38e5c790423f7007c7ccc1"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.4.0"
++  shared_preferences_platform_interface:
++    dependency: transitive
++    description:
++      name: shared_preferences_platform_interface
++      sha256: "57cbf196c486bc2cf1f02b85784932c6094376284b3ad5779d1b1c6c6a816b80"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.4.1"
++  shared_preferences_web:
++    dependency: transitive
++    description:
++      name: shared_preferences_web
++      sha256: "59dc807b94d29d52ddbb1b3c0d3b9d0a67fc535a64e62a5542c8db0513fcb6c2"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.4.1"
++  shared_preferences_windows:
++    dependency: transitive
++    description:
++      name: shared_preferences_windows
++      sha256: "398084b47b7f92110683cac45c6dc4aae853db47e470e5ddcd52cab7f7196ab2"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.4.0"
+   shelf:
+     dependency: transitive
+     description:
+@@ -688,6 +829,14 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "2.4.5"
++  xdg_directories:
++    dependency: transitive
++    description:
++      name: xdg_directories
++      sha256: faea9dee56b520b55a566385b84f2e8de55e7496104adada9962e0bd11bcff1d
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.0.4"
+   yaml:
+     dependency: transitive
+     description:
+@@ -698,4 +847,4 @@
+     version: "3.1.2"
+ sdks:
+   dart: ">=3.3.4 <4.0.0"
+-  flutter: ">=3.7.0"
++  flutter: ">=3.19.0"
